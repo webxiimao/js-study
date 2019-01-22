@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>观察者订阅者</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+    let event = {
+        list : {},
+        on(key, cb){
+            if(!this.list[key]||this.list[key].length==0){
+                this.list[key] = []
+            }
+            this.list[key].push(cb)
+        },
+        emit(){
+            let key = [].shift.apply(arguments)
+            if(!this.list[key]){
+                return false
+            }
+            this.list[key].forEach(fn => {
+                fn.apply(this,arguments)
+            })
+
+        }
+
+    }
+
+    event.on("up",()=>{
+        console.log("aaa");
+    })
+
+
+    event.on("up",(obj)=>{
+        console.log(`my name is ${obj.name}, my age is ${obj.age} `);
+    })
+
+
+    event.emit("up",{name:"mark",age:18})
+
+</script>

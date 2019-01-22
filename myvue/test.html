@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<p id="test">
+    <span class="haha">这是一个寂寞的天</span>
+    <span class="haha">下着有些伤心的雨</span>
+</p>
+</body>
+</html>
+<script>
+    let test = document.getElementById("test")
+    console.log(test.childNodes);
+    childNodes = test.childNodes
+    childNodes.forEach(node=>{
+        console.log(node.textContent);
+    })
+</script>

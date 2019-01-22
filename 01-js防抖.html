@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text" id="demo" />
+</body>
+</html>
+<script>
+    function debounce(fn, delay) {
+        let timer = null;
+        
+        return () => {
+            const _this = this;
+            const _arguments = arguments;
+            console.log(arguments);
+            
+            clearTimeout(timer);
+            timer = setTimeout(() => {
+                // fn.apply(_this, _arguments);
+                fn()
+            }, delay);
+        }
+    }
+
+
+
+    debounce(() => { console.log('request~!')})
+    let element = document.querySelector('#demo');
+    //为增强演示效果,延时2s
+    element.addEventListener('keyup', debounce(() => { console.log(this) }, 2000));
+</script>

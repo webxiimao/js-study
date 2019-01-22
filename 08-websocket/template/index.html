@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Flask-SocketIO Test</title>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <script src="https://cdn.bootcss.com/socket.io/2.2.0/socket.io.js"></script>
+    <script type="text/javascript" charset="utf-8">
+    $(document).ready(function() {
+        var socket = io.connect('http://127.0.0.1:5000');
+
+        socket.on('connect', function() {
+            socket.emit('my event', {data: 'connected!'});
+        })
+
+        socket.on('res', function(msg) {
+            console.log(msg);
+            // $('#log').append('<br>' + $('<div/>').text('Received #' + ': ' + msg.data).html());
+            document.querySelector("#log").insertAdjacentHTML(
+                "beforeend",
+                "<div class='message-div'><span class='message-content'>" + msg.data + "</span></div>"
+            )
+        });
+
+        $('form#emit').submit(function(event) {
+                socket.emit('my event', {data: $('#emit_data').val()});
+                return false;
+            });
+    });
+
+    </script>
+</head>
+<body>
+    <h2>WebSokect</h2>
+    <form id="emit" method="POST" action='#'>
+        <input type="text" name="emit_data" id="emit_data" placeholder="Message">
+        <input type="submit" value="Echo">
+    </form>
+    <div id='log'></div>
+</body>
+</html>

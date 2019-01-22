@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+
+    Function.prototype.call2 = function(context) {
+        // 首先要获取调用call的函数，用this可以获取
+        context.fn = this
+        var arg = []
+        for(var i = 1;i<arguments.length;i++){
+            // arg.push('arguments['+ i +']')
+            // console.log('arguments[1]');
+            arg.push(arguments[i])
+        }
+        // eval('context.fn('+ arg +')')
+        context.fn(...arg)
+        // context.fn();
+        delete context.fn;
+    }
+
+    // 测试一下
+    var foo = {
+        value: 1
+    };
+
+    function bar(name,age) {
+        console.log('name:'+name);
+        console.log('age:'+age);
+        console.log(this.value);
+    }
+
+    bar.call2(foo,'mark',18); // 1
+</script>

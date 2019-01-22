@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>06-上传图片并预览</title>
+</head>
+<body>
+<input type="file" id="input">
+<img src="" alt="" id="img">
+</body>
+</html>
+<script>
+    let input = document.querySelector("#input"),
+        img = document.querySelector("#img")
+    input.addEventListener('change', function () {
+        let file = this.files[0]
+        let render = new FileReader()
+        // render.readAsArrayBuffer(file)
+        render.readAsDataURL(file)
+        render.addEventListener('loadend',function (e) {
+            // console.log(e);
+            img.src = this.result
+        })
+    })
+</script>
+
+

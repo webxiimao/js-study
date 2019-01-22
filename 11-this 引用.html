@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+    // function foo() {
+    //     this.a = 2;
+    //     // bar();
+    // }
+    //
+    // function bar() {
+    //     console.log('aaa');
+    //     console.log( this.a );
+    // }
+    //
+    // // foo(); //undefined
+    // var fo = new foo()
+
+    // bar.call(fo)
+
+
+    var obj1 = {
+        a:2,
+
+    }
+
+
+    var obj2={
+        a:22,
+        foo: () => {
+            console.log(this.a);
+        }
+    }
+
+    obj1.b = obj2.foo
+    obj1.b()
+    obj2.foo()
+
+
+</script>

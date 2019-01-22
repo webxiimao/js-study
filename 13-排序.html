@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+    //冒泡排序
+
+    function getTime() {
+        // return Date.parse(new Date())
+        return new Date()
+    }
+
+
+
+
+    // maopao(arr)
+
+    const count = 3000
+
+    /**
+     * 获取随机不重复数组
+     */
+    function getRandomNum(cb) {
+
+        let list = _numList()
+        // console.log(_setRandomListOne(list));
+        // console.log(_setRandomListTwo(list));
+        // console.log(_setRandomListOne(list));
+        let arr = _setRandomListOne(list)
+
+
+
+
+        /*冒泡排序*/
+        function maopao(arr){
+            let start = getTime()
+            for(var i = 0; i < arr.length; i++){
+                for(var j = 0; j < arr.length -1 -i;j++){
+                    if(arr[j] > arr[j+1]){
+                        arr[j] = [arr[j+1],arr[j+1] = arr[j] ][0]
+                    }
+                }
+            }
+            let end = getTime()
+            console.log(arr);
+            console.log(end - start);
+        }
+
+
+        /*选择排序*/
+        function xuanze(arr){
+            let start = getTime()
+
+            for(var i = 0; i < arr.length; i++){
+                let index = i
+                for(var j = i + 1; j < arr.length ; j++){
+                    if(arr[j] < arr[index]){
+                        index = j
+                    }
+                }
+                if(i!=index)
+                    arr[i] = [arr[index], arr[index] = arr[i]][0]
+            }
+
+            let end = getTime()
+            console.log(end - start);
+            console.log(arr);
+        }
+
+        /*快速排序基本理论*/
+        function kuaisu(arr){
+            let start = getTime()
+
+
+            function foo(arr) {
+                // console.log(arr);
+                if(arr.length<=1)return arr
+                let pIndex = Math.floor(arr.length/2),//基准index
+                    left = [],
+                    right = [];
+                let pivot = arr.splice(pIndex,1)[0]
+                for(var i = 0; i < arr.length; i++){
+                    if(arr[i] < pivot){
+                        left.push(arr[i])
+                    }else{
+                        right.push(arr[i])
+                    }
+                }
+                return foo(left).concat([pivot],foo(right))
+            }
+
+            let newArr = foo(arr)
+
+            let end = getTime()
+            console.log(end - start);
+            console.log(newArr);
+        }
+
+        /*快速排序实现*/
+        function quickSort(arr){
+            let start = getTime()
+
+            /*交换函数*/
+            function swap(arr, i, j) {
+                const t = arr[i];
+                arr[i] = arr[j];
+                arr[j] = t;
+            }
+
+            /**
+             * 插入方法
+             * @param arr 数组
+             * @param p 起始坐标
+             * @param r 长度
+             */
+            function divde(arr, p, r) {
+                let index = p - 1
+                for(var i = p;i < r-1; i++){
+                    if(arr[i] < arr[r-1]){
+                        index++
+                        swap(arr, i, index)
+                    }
+                }
+                swap(arr,r-1,index+1)
+                return index+1
+            }
+
+            function qsort(arr,p=0,r) {
+                r = r || arr.length
+                if(p < r-1){
+                    let q = divde(arr,p,r)
+                    qsort(arr,p,q)
+                    qsort(arr,q+1,r)
+                }
+                return arr
+
+            }
+
+            qsort(arr)
+
+            let end = getTime()
+            console.log(end - start);
+            console.log(arr);
+        }
+
+        // maopao(arr)
+        // xuanze(arr)
+        // kuaisu(arr)
+        quickSort(arr)
+
+        function _numList() {
+            let arr = []
+            for(var i = 0;i < count; i++){
+                arr.push(i+1)
+            }
+            return arr
+        }
+
+        function _getRandom(num) {
+            return Math.floor(Math.random()*num)
+        }
+
+
+
+
+
+
+
+        function _setRandomListOne(arr) {
+            let newArr = []
+            let start = new Date().getTime()
+            for(var i = 0; i < arr.length; i++){
+                let num = _getRandom(arr.length)
+                newArr.push(arr.splice(num,1)[0])
+                i--
+            }
+            let end = new Date().getTime()
+            // console.log(end - start);
+            return newArr
+        }//7
+
+        function _setRandomListTwo(arr) {
+            let newArr = []
+            let start = new Date().getTime()
+            for(var i = 0; i < arr.length; i++){
+                let num = _getRandom(arr.length)
+                if(arr[num]!==null){
+                    newArr.push(arr[num])
+                    arr[num] = null
+                }else{
+                    i--
+                }
+            }
+            let end = new Date().getTime()
+            console.log(end - start);
+            return newArr
+        }//17,16,18
+
+        function _setRandomListThree(arr) {
+            let newArr = arr
+            let start = new Date().getTime()
+            newArr.sort(function () {
+                return 0.5 - Math.random()
+            })
+            let end = new Date().getTime()
+            console.log(end - start);
+            return newArr
+        }//27,28
+    }
+
+    getRandomNum()
+
+    // console.log(Math.round(Math.random()*100));
+</script>

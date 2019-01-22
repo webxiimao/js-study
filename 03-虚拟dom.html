@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="root"></div>
+    
+    <button type="button" class="btn">button</button>
+    
+</body>
+</html>
+<script>
+
+
+class VNode {
+    constructor(tag, children, text) {
+        this.tag = tag
+        this.children = children
+        this.text = text
+    }
+
+    render() { // render 方法，创建子元素
+        if (this.tag === '#text') {
+            return document.createTextNode(this.text)
+        }
+        let el = document.createElement(this.tag)
+        this.children.forEach(vChild => {
+            el.appendChild(vChild.render())
+        })
+        return el
+    }
+}
+// v 构造函数，判断子元素类型
+function v(tag, children, text) {
+    if (typeof children === 'string') {
+        text = children
+        children = []
+    }
+    return new VNode(tag, children, text)
+}
+
+
+
+function patchElement(parent, newVNode, oldVNode, index = 0) {
+    if (!oldVNode) {
+        parent.appendChild(newVNode.render())
+    } else if (!newVNode) {
+        parent.removeChild(parent.childNodes[index])
+    } else if (newVNode.tag !== oldVNode.tag || newVNode.text !== oldVNode.text) {
+        parent.replaceChild(newVNode.render(), parent.childNodes[index])
+    } else {
+        for (let i = 0; i < newVNode.children.length || i < oldVNode.children.length; i++) {
+            patchElement(parent.childNodes[index], newVNode.children[i], oldVNode.children[i], i)
+        }
+    }
+}
+
+
+
+// 1. 构建虚拟DOM
+let vNode = v('div', [
+    v('p', [
+        v('span', [v('#text', 'Ada')])
+    ]),
+    v('span', [v('#text', 'shuai')])
+])
+// 3. 生成新的虚拟DOM
+let vNode1 = v('div', [
+    v('p', [
+        v('span', [v('#text', 'Ada')])
+    ]),
+    v('span', [v('#text', 'shuai')]),
+    v('p', [v('#text', 'upload')])
+])
+// 2. 通过虚拟DOM构建真正的DOM
+const root = document.querySelector('#root')
+patchElement(root, vNode)
+var n = 0
+// 4. 比较两次虚拟DOM树的不同，在真正的DOM元素上应用变更
+document.querySelector('.btn').onclick = function () {
+    if (n % 2 == 0) {
+        patchElement(root, vNode1, vNode)
+    } else {
+        patchElement(root, vNode, vNode1)
+    }
+    n += 1
+}
+
+
+</script>

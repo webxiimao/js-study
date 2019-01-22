@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+防抖前的input:<input type="text" id="unDebounce">
+<br>
+<br>
+<br>
+防抖后的input:<input type="text" id="debounce">
+</body>
+<br>
+<br>
+<br>
+节流后的input:<input type="text" id="throttle">
+</html>
+<script>
+
+    function ajax(value) {
+        // console.log(this);
+        console.log('ajax request '+ value);
+    }
+
+    let input1 = document.querySelector('#unDebounce')
+    let input2 = document.querySelector('#debounce')
+    let input3 = document.querySelector('#throttle')
+
+    input1.addEventListener('keyup',(e)=>{
+
+        ajax(e.target.value)
+    })
+
+    /**
+     * 加入防抖功能
+     * @param func ajax封装
+     * @param delay 延迟
+     */
+    function debounce(func,delay) {
+        return function (arg) {
+            let self = this;
+            let _arg = arg
+            clearTimeout(func.id)
+            func.id = setTimeout(()=>{
+                func(_arg)
+            },delay)
+        }
+    }
+
+
+
+    //防抖相当于一个装饰器作用
+    debAjax = debounce(ajax,500)
+    input2.addEventListener('keyup',e=>{
+        debAjax(e.target.value)
+    })
+
+
+    /**
+     * 加入节流功能
+     * @param func
+     * @param delay
+     * @returns {Function}
+     */
+    function throttle(func,delay) {
+        let last,
+            deferTimer;
+        return function(arg){
+            let self = this
+            let _arg = arg;
+            let now = +new Date()
+            if(last && now <last + delay){
+                clearTimeout(deferTimer);
+                deferTimer = setTimeout(()=>{
+                    func(_arg)
+                },delay)
+            }else{
+                last = now;
+                func(_arg)
+            }
+
+        }
+    }
+    thrAjax= throttle(ajax,1000)
+    input3.addEventListener('keyup',e=>{
+        thrAjax(e.target.value)
+    })
+
+
+</script>
