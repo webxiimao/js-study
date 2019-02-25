@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+    var data =  [1, [2, [ [3, 4], 5], 6]];
+
+    function flat(data) {
+        var newArr = []
+
+        function format(arr) {
+            arr.forEach(function (item) {
+                if(typeof item != "object"){
+                    newArr.push(item)
+                }else{
+                    format(item)
+                }
+            })
+        }
+
+        format(data)
+
+        return newArr
+    }
+
+    console.log(flat(data));
+</script>

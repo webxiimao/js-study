@@ -45,5 +45,53 @@
                 insertNode(root, newNode)
             }
         }
+
+
+        
+        /*前序排序*/
+        var preOrderTravrseNode = function (node, callback) {
+            if(node != null){
+                callback(node.key)
+                preOrderTravrseNode(node.left,callback)
+                preOrderTravrseNode(node.right,callback)
+            }
+        }
+        
+        this.preOrderTraverse = function (callback) {
+            preOrderTravrseNode(root,callback)
+        }
+
+        /*中序排序*/
+        var inOrderTravresNode = function (node, callback) {
+            if(node != null){
+                inOrderTravresNode(node.left,callback)
+                callback(node.key)
+                inOrderTravresNode(node.right,callback)
+            }
+        }
+
+        this.inOrderTravresNode = function (callback) {
+            inOrderTravresNode(root,callback)
+        }
+
     }
+
+
+	var nodes = [8,3,10,1,6,14,4,7,13];
+    var btree = new Btree()//创建二叉树实例
+    /*数组插入二叉树实例*/
+    nodes.forEach(item => {
+        btree.insert(item)
+    })
+
+
+    /*设定一个回调函数用于输出遍历结果*/
+    var callback = function (key) {
+        console.log(key);
+    }
+
+    // btree.preOrderTraverse(callback)
+    btree.inOrderTravresNode(callback)
+
+
 </script>

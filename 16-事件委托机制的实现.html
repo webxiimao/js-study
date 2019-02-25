@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <ul id="list">
+        <li><span>1</span></li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+    </ul>
+</body>
+</html>
+<script>
+    let list = document.querySelector("#list")
+
+    list.addEventListener("click",function (e) {
+        let el = e.target
+        while (el.tagName !== "LI"){
+            if(el.tagName == "UL"){
+                el = null
+                break
+            }
+            el = el.parentNode
+        }
+        if(el){
+            console.log("111");
+        }
+    })
+</script>
