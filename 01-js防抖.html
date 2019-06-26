@@ -14,23 +14,28 @@
     function debounce(fn, delay) {
         let timer = null;
         
-        return () => {
+        return function(){
             const _this = this;
             const _arguments = arguments;
-            console.log(arguments);
-            
             clearTimeout(timer);
             timer = setTimeout(() => {
-                // fn.apply(_this, _arguments);
-                fn()
+                fn.apply(_this, _arguments);
+                // fn()
             }, delay);
         }
     }
 
 
 
-    debounce(() => { console.log('request~!')})
     let element = document.querySelector('#demo');
     //为增强演示效果,延时2s
-    element.addEventListener('keyup', debounce(() => { console.log(this) }, 2000));
+    function handle(value){
+        console.log(value);
+        // console.log("haha")
+
+    }
+
+    let fnn = debounce(handle, 200).bind(this, "haha");
+
+    element.addEventListener('keyup', fnn);
 </script>
