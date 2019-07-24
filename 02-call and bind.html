@@ -7,7 +7,7 @@
     <title>Document</title>
 </head>
 <body>
-    
+
 </body>
 </html>
 <script>
@@ -16,22 +16,43 @@
     //     y : function(num){
     //         console.log(num);
     //         console.log(this);
-            
-            
+
+
     //     }
     // }
 
 
     // a.y.call(null,12)
     // a.y(12)
-function Obj1(){
-    this.name = "aaa"
-    this.age = 18
-}
+// function Obj1(){
+//     this.name = "aaa"
+//     this.age = 18
+// }
 
 
-    
-    
-    
-    
+    let obj = {
+        a:2
+    }
+
+    Function.prototype.myBind = function (obj) {
+        let self = this
+        return function () {
+            self.call(obj)
+        }
+    }
+
+
+    function say() {
+        console.log(this.a);
+    }
+
+    var b = say.myBind(obj)
+
+    b()
+
+
+
+
+
+
 </script>

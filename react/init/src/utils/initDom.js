@@ -1,7 +1,7 @@
 import React from "react";
  
 
-class FieldsStore {
+class FieldsBaseStore {
     constructor(props){
         this.props = props || {};
     }
@@ -24,6 +24,33 @@ class FieldsStore {
                 [name]:this.props[name]
             })
         }
+    }
+
+    createDomElement = (action, JsxDom) => {
+        return (props) => {
+            return (
+                <React.Fragment>
+                    <JsxDom>
+                        {this.setDecorator(action)(props.children)}
+                    </JsxDom>
+                </React.Fragment>
+            )
+        }
+    }
+}
+
+export class FieldsStore extends FieldsBaseStore{
+    constructor(props,dom){
+        super(props)
+        this.dom = dom || {}
+    }
+
+    getPropElement = (name) => {
+        return this.dom[name]
+    }
+
+    setPropElement = (name) => (action, JsxDom) => {
+        this.dom[name] = this.createDomElement(action, JsxDom)
     }
 }
 
