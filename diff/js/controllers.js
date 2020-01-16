@@ -31,7 +31,7 @@ const patchesController = {
   remove(elements, startIndex, endIndex){
     return {
       type:"REMOVE",
-      oldVnodes:elements.slice(startIndex, endIndex)
+      oldVnodes:elements.slice(startIndex, endIndex + 1)
     }
   }
 }
