@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="./js/utils.js"></script>
+  <script src="./js/createElement.js"></script>
+  <script src="./js/batcher.js"></script>
+  <script src="./js/dep.js"></script>
+  <script src="./js/compile.js"></script>
+  <script src="./js/watcher.js"></script>
+  <script src="./js/observer.js"></script>
+  <script src="./js/mvvm.js"></script>
+</head>
+<body>
+
+  <script>
+    const c = createElement
+    const fragment = document.createDocumentFragment()
+    const renderTree = c("div",{ id:"app" },[
+      c("input", { type:"text", 'v-model':"text" }),
+      c("span", {}, "{{text}}"),
+      c("button", { 'v-click':"clickBtn" }, "点我爽"),
+    ])
+    document.body.appendChild(renderTree)
+
+    var vm = new Vue({
+      el:"#app",
+      renderTree,
+      data:{
+        text:""
+      },
+      methods:{
+        clickBtn(){
+          this.data.text = "click"
+        }
+      }
+    })
+
+    vm.data.text = "hello world!"
+    for(let i = 0; i < 10; i++){
+      vm.data.text = "hello world!" + i
+    }
+  </script>
+</body>
+</html>

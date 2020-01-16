@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        var spiralOrder = function (matrix) {
+            if (matrix.length == 0) return matrix
+            let order = [] //创建一个空list用来循环螺旋数组
+            let m = 0,
+                n = 0,
+                matrixLen = matrix.length,
+                matrixInnerLen = matrix[0].length;
+            for (var count = 0; count < Math.ceil(matrix.length / 2); count++) {
+                let saveOrderLen = order.length
+                for (var row = n; row < matrixInnerLen - n; row++) {
+                    order.push(matrix[n][row])
+                }
+                if(order.length == saveOrderLen)break
+                saveOrderLen = order.length
+                n++
+                for (var col = m + 1; col < matrixLen - m; col++) {
+                    order.push(matrix[col][matrixInnerLen - n])
+                }
+                if(order.length == saveOrderLen)break
+                saveOrderLen = order.length
+                m++
+                for (var backRow = matrixInnerLen - n - 1; backRow >= n - 1 ; backRow--) {
+                    order.push(matrix[matrixLen - m ][backRow])
+                }
+                if(order.length == saveOrderLen)break
+                for (var backCol = matrixLen - m - 1  ; backCol > m - 1 ; backCol--) {
+                    order.push(matrix[backCol][n - 1])
+                }
+
+            }
+            console.log(order);
+            
+            return order
+        };
+        // var matrix = [
+        //     [1, 2,3,4],
+        //     [6,7,8,9],
+        //     [14, 15, 16,18],
+        // ]
+        // var matrix = [
+        //     [1, 2,3],
+        //     [6,7,8],
+        //     [14, 15, 16],
+        //     [19, 20, 21],
+        // ]
+        var matrix = [
+            [7],
+            [9],
+            [6]
+        ]
+        spiralOrder(matrix)
+        // [1, 2, 3, 8, 16, 21, 20, 19, 14, 6, 7, 15]
+    </script>
+</body>
+
+</html>

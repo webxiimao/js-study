@@ -115,6 +115,8 @@ let compileUtil = {
         let updaterFn = updater[dir + 'Updater']
         updaterFn && updaterFn(node,vm[exp])
         new Watcher(vm,exp,function(value,oldValue){
+            console.log(value);
+            
             updaterFn(node,value,oldValue)
         })
     },

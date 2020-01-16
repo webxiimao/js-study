@@ -1,0 +1,15 @@
+.active{
+  color: black;
+}
+
+.noActive{
+  color: #eee;
+}
+
+.option{
+  color: black;
+}
+
+.noOption{
+  color: #eee;
+}

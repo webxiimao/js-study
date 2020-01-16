@@ -1,0 +1,50 @@
+#app {
+    position: relative;
+    padding: 30px 0 30px 10px;
+  
+    #table {
+      padding: 20px;
+      border-radius: 10px;
+      min-width: 450px;
+      transition: background 0.5s;
+      background: rgba(73, 224, 56, 0.1);
+  
+      &.low-range {
+        background: rgba(73, 224, 56, 0.47);
+        td {
+          border-bottom: 1px solid rgba(73, 224, 56, 0.9)
+        }
+      }
+      &.mid-range {
+        background: rgba(224, 196, 56, 0.47);
+        td {
+          border-bottom: 1px solid rgba(224, 196, 56, 0.9)
+        }
+      }
+      &.high-range {
+        background: rgba(224, 56, 56, 0.47);
+        td {
+          border-bottom: 1px solid rgba(224, 56, 56, 0.9)
+        }
+      }
+      &.ultra-high-range {
+        background: rgba(224, 56, 56, 0.9);
+        td {
+          border-bottom: 1px solid black
+        }
+      }
+      td {
+        border-bottom: 1px solid black;
+        padding: 10px;
+        font-weight: bold;
+      }
+    }
+    .controls {
+      padding-top: 20px;
+  
+      #scroll {
+        width: 450px;
+        box-sizing: border-box;
+      }
+    }
+  }
