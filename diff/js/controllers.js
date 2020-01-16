@@ -59,7 +59,7 @@ const nodeController = {
     if(nodes.length > 0){
       for(let i = 0; i < nodes.length; i++){
         this.create(root,{
-          oldElement:patch.oldElement.elm,
+          oldElement:patch.oldElement ? patch.oldElement.elm: null,
           newVnode:nodes[i]
         })
       }

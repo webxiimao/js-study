@@ -1,13 +1,22 @@
 const oldVnode = el("ul", { id:"father", key:"father" }, [
   el("li", { id:"li1", key:"li1" }, "hello"),
-  el("li", { id:"li2", key:"li2" }, " world"),
+  el("li", { id:"li2", key:"li2" }, [ 
+    el("li", { id:"li11", key:"li11" }, "1") ,
+    el("li", { id:"li12", key:"li12" }, "2") ,
+    el("li", { id:"li13", key:"li13" }, "3") ,
+  ]),
   el("li", { id:"li3", key:"li3" }, " sb"),
   el("li", { id:"li4", key:"li4" }, " zjj"),
 ])
 
 const newVnode = el("div", { id:"father", key:"father" }, [
   el("li", { id:"li5", key:"li5" }, " dd"),
-  el("li", { id:"li2", key:"li2" }, "world"),
+  el("li", { id:"li2", key:"li2" },[ 
+    el("li", { id:"li11", key:"li11" }, "1") ,
+    el("li", { id:"li12", key:"li12" }, "2") ,
+    el("li", { id:"li13", key:"li13" }, "3") ,
+    el("li", { id:"li14", key:"li14" }, "4") ,
+  ]),
   el("li", { id:"li1", key:"li1" }, " hello"),
   el("li", { id:"li4", key:"li4" }, " zjj"),
   el("li", { id:"li3", key:"li3" }, " sb"),
