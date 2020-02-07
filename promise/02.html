@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+</body>
+</html>
+<script>
+  /** promise用法2:可以用一个变量保存new Promise 函数 后续.then不会再调用该函数而是直接在对象后面调用then方法 */
+  function start(){
+    return new Promise((resovle) => {
+      console.log("inner");
+      
+      resovle("222")
+    })
+  }
+
+  function main(){
+    let promise = start()
+    return promise.then(res => {
+      console.log(res);
+    })
+  }
+  main()
+</script>

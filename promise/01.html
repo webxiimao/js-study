@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    /** promise用法1:可以将resolve函数保存起来， 在外部调用 */
+    let promiseList = []
+    function start(){
+      return new Promise((resolve, reject) => {
+        promiseList.push({success: resolve})
+      })
+    }
+
+    start().then(res => {
+      console.log(res);
+      
+    })
+
+    setTimeout(() => {
+      promiseList[0].success("item")
+    },1000)
+  </script>
+</body>
+</html>
