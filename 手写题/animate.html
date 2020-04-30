@@ -1,0 +1,45 @@
+<!--
+ * @Author: maoyuyu
+ * @Date: 2020-04-28 14:18:33
+ * @LastEditors: maoyuyu
+ * @LastEditTime: 2020-04-28 14:50:43
+ * @Description: 
+ -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    #box {
+      width: 100px;
+      height: 100px;
+      background-color: pink;
+      position: absolute;
+
+    }
+  </style>
+</head>
+<body>
+  <div id="box"></div>
+  <script>
+    function move(el, direction, time){
+      console.log(window.getComputedStyle(el).position);
+      let startTime
+      return function start(){
+        let timestamp = new Date().valueOf()
+        if(startTime === undefined){
+          startTime = timestamp
+        }
+        const t = timestamp - startTime
+        el.style.left = t + 'px'
+        if(t >= time)return
+        window.requestAnimationFrame(start)
+      }
+    }
+    const element = document.querySelector('#box')
+    move(element, 'left', 1000)()
+  </script>
+</body>
+</html>

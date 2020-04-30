@@ -1,0 +1,28 @@
+<!--
+ * @Author: maoyuyu
+ * @Date: 2020-04-28 11:38:29
+ * @LastEditors: maoyuyu
+ * @LastEditTime: 2020-04-28 11:40:36
+ * @Description: 
+ -->
+
+ <!DOCTYPE html>
+ <html lang="en">
+ <head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Document</title>
+ </head>
+ <body>
+   <script>
+     function myNew(fn, ...arg){
+       const obj = new Object()
+       obj.__proto__ = Object.create(fn.prototype)
+       const res = fn.call(obj, ...arg)
+       return res instanceof Object ? res : obj
+     }
+
+     
+   </script>
+ </body>
+ </html>

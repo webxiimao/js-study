@@ -1,0 +1,55 @@
+<!--
+ * @Author: maoyuyu
+ * @Date: 2020-04-27 20:53:54
+ * @LastEditors: maoyuyu
+ * @LastEditTime: 2020-04-27 21:15:47
+ * @Description: 
+ -->
+
+ <!DOCTYPE html>
+ <html lang="en">
+ <head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Document</title>
+ </head>
+ <body>
+   <script>
+     Function.prototype.myCall = function(context, ...arg){
+       context.fn = this
+       context.fn(...arg)
+       delete context.fn
+     }
+
+     Function.prototype.myApply = function(context){
+        context.fn = this
+        context.fn(...Array.from(arguments)[1])
+        delete context.fn
+     }
+
+     Function.prototype.myBind = function(context, ...arg){
+       let self = this
+       return function F(){
+        return this instanceof F ? self.call(this,...arg) : self.call(context, ...arg)
+       }
+     }
+
+     function log(c){
+       this.c = 1111
+       
+     }
+
+     let obj = {
+       a: 1
+     }
+
+     log.myCall(obj, "12")
+     log.myApply(obj, [12])
+     const bindLog = log.myBind(obj, 12)
+     const a = new bindLog()
+     bindLog()
+     console.log(a);
+     
+   </script>
+ </body>
+ </html>

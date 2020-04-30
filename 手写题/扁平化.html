@@ -1,0 +1,56 @@
+<!--
+ * @Author: maoyuyu
+ * @Date: 2020-04-29 23:02:22
+ * @LastEditors: maoyuyu
+ * @LastEditTime: 2020-04-29 23:13:44
+ * @Description: 
+ -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    const obj = {
+      'a':{
+        'b':{
+          'c':{
+            'd': 1
+          }
+        }
+      },
+      'aa':2,
+      'c':[
+        1,2
+      ]
+    }
+
+    function run(data) {
+      let newObj = {}
+      function traverse(obj, prev){
+        if(typeof obj !== 'object'){
+          newObj[prev] = obj
+          return
+        }
+        if(obj instanceof Array){
+          obj.forEach((item, index) => {
+            traverse(item, `${prev}[${index}]`)
+          })
+          return
+        }
+        Object.keys(obj).forEach(key => {
+          traverse(obj[key], prev ? prev + '.' + key : key)
+        })
+        // Object.keys(obj)
+      }
+      traverse(data, '')
+      return newObj
+    }
+    console.log((run(obj)));
+    
+  </script>
+</body>
+</html>

@@ -1,0 +1,108 @@
+<!--
+ * @Author: maoyuyu
+ * @Date: 2020-04-28 13:35:38
+ * @LastEditors: maoyuyu
+ * @LastEditTime: 2020-04-28 14:25:08
+ * @Description: 
+ -->
+
+ <!DOCTYPE html>
+ <html lang="en">
+ <head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Document</title>
+ </head>
+ <body>
+   <input type="text" id="autocomplate">
+
+   <script>
+     const element = document.querySelector("#autocomplate")
+     const list = ['a', 'abc', 'acd', 'b', 'bac', 'bad', 'bacdef']
+     function initAutoComplate(el, list, options){
+      const client = el.getBoundingClientRect()
+      const style = {
+        ...options.style,
+        position: 'absolute',
+        left: client.x + 'px',
+        top: client.y + client.height + 'px',
+        width: client.width + 'px',
+        // TODO
+      }
+      const tree = initDecTree(list)
+
+      const box = document.createElement('ul')
+      for(let key in style){
+        box.style[key] = style[key]
+      }
+      console.log(box.style);
+      
+      el.addEventListener('input', function(e){
+        const value = e.target.value
+        const list = fetchDecTree(tree, value)
+        const fragment = document.createDocumentFragment()
+        box.innerHTML = ''
+        list.forEach(item => {
+          const li = document.createElement('li')
+          li.innerText = item
+          fragment.appendChild(li)
+          box.appendChild(fragment)
+        })
+      })
+      box.addEventListener('click', function(e) {
+        const target = e.target
+        if(target.nodeName.toLowerCase() === 'li'){
+          el.value = target.innerText
+        }
+        
+      })
+      document.body.appendChild(box)
+     }
+
+     initAutoComplate(element, list, {
+      style: {
+        background: 'pink'
+      }
+     })
+
+     function initDecTree(list){
+       let tree = {}
+      list.forEach(item => {
+        let cur = tree
+        for(let i = 0; i < item.length; i++){
+          if(!cur[item[i]]){
+            cur[item[i]] = {}
+          }
+          cur = cur[item[i]]
+        }
+      });
+      return tree
+     }
+
+     function fetchDecTree(tree, value){
+       const list = []
+       let cur = tree
+       for(let i = 0; i < value.length; i++) {
+        if(cur[value[i]]){
+          cur = cur[value[i]]
+        }
+       }
+      function traverse(obj, prefix){
+        if(Object.keys(obj).length === 0){
+          list.push(prefix)
+          return
+        }else {
+          Object.keys(obj).forEach(key => {
+            traverse(obj[key], prefix + key)
+          })
+        }
+      }
+
+      traverse(cur, value)
+      return list
+     }
+
+     
+   </script>
+ </body>
+ </html>

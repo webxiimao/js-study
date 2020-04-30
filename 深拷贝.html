@@ -1,0 +1,62 @@
+<!--
+ * @Author: maoyuyu
+ * @Date: 2020-04-26 16:23:43
+ * @LastEditors: maoyuyu
+ * @LastEditTime: 2020-04-26 17:04:56
+ * @Description: 
+ -->
+ <!DOCTYPE html>
+ <html lang="en">
+ <head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Document</title>
+ </head>
+ <body>
+   <script>
+     const types = (data, type) => {
+       return Object.prototype.toString.call(data) === `[object ${type}]`
+     }
+     const deepClone = (obj) => {
+       if(!types(obj, 'Object')) return obj
+       if(types(obj, 'RegExp')) return new RegExp(obj)
+       if(types(obj, 'Function')) return new Function(obj)
+       let newObj = new obj.constructor
+       console.log("aaa", newObj.__proto__ == obj.__proto__);
+       for(let key in obj){
+         if(obj.hasOwnProperty(key)){
+           newObj[key] = deepClone(obj[key])
+         }
+       }
+       return newObj
+     }
+
+     let obj = {
+       a: 1,
+       b: "2",
+       c: {
+         x:1,
+         c:2
+       },
+       d: /\w+/,
+       e: function(){
+         console.log('2222');
+         
+       }
+     }
+     function AA(){
+
+     }
+     AA.prototype.getName = function(){
+       console.log('name');
+       
+     }
+     obj.__proto__ = Object.create(AA.prototype)
+     const newObj = deepClone(obj)
+     newObj.c.x = 2
+     console.log(obj);
+     newObj.getName()
+     
+   </script>
+ </body>
+ </html>
